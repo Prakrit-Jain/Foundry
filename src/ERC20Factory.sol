@@ -48,6 +48,11 @@ contract ERC20Factory {
     event Cloned(address, address);
 
     /**
+     * @dev Event Emmited when FeeMode is changed from `from` to `to`.
+     */
+    event ModeChanged(uint from, uint to);
+
+    /**
      * @dev Sets the deployer as msg.sender.
      * alaso sets the implementation contract address to be used for creating clone.
      */
@@ -81,9 +86,16 @@ contract ERC20Factory {
     /**
      * @notice Changes the fee mode between standard and referral.
      * @dev Only owner can change the fee mode
+     * emit Modechanged event
      */
     function changeFeeMode() external onlyOwner {
-        mode = !mode;
+        if (mode == true) {
+            mode = false;
+            emit ModeChanged(3, 2);
+        } else {
+            mode = false;
+            emit ModeChanged(2, 3);
+        }
     }
 
     /**
